@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="study">
+
+    <select id="selectItems" parameterType="hashmap" resultType="hashmap">
+        SELECT * 
+          FROM ITEM 
+         WHERE ID = #{id}
+    </select>
+
+    <insert id="insertItems" parameterType="hashmap" >
+        INSERT INTO ITEM(ID, NAME)
+        VALUES(#{id}, #{name})
+    </insert>
+  
+    <delete id="deleteItems" parameterType="hashmap" >
+        DELETE FROM ITEM
+         WHERE ID = #{id}
+    </delete>
+
+  <select id="existMembers" parameterType="hashmap" resultType="int">
+        SELECT COUNT(*) AS CNT 
+          FROM MEMBERS 
+         WHERE NAME = #{name}
+  </select>
+  
+  <insert id="insertMember" parameterType="hashmap" >
+        INSERT INTO MEMBERS( name
+                           , email
+                           , password
+                           , gender
+                           <if test="hobby1 != null">
+                           , hobby1
+                           </if>
+                           <if test="hobby2 != null">
+                           , hobby2
+                           </if>
+                           ) 
+                     VALUES( #{name}
+                           , #{email}
+                           , #{password}
+                           , #{gender}
+                           <if test="hobby1 != null">
+                           , #{hobby1}
+                           </if>
+                           <if test="hobby2 != null">
+                           , #{hobby2}
+                           </if>
+                           )
+  </insert>
+
+</mapper>
